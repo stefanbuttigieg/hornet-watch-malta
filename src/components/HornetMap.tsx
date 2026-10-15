@@ -58,7 +58,7 @@ export default function HornetMap({
       {reports.map((r) =>
         r.type === "intervention" && !heat ? (
           <Circle key={r.id + "-zone"} center={[r.lat, r.lng]} radius={1500}
-            pathOptions={{ color: COLOR_VAR.intervention, weight: 1, fillOpacity: 0.04, dashArray: "4 6" }} />
+            pathOptions={{ color: COLOR_VAR["intervention"], weight: 1, fillOpacity: 0.04, dashArray: "4 6" }} />
         ) : null,
       )}
       {reports.map((r) => (

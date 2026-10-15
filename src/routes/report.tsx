@@ -22,6 +22,7 @@ export const Route = createFileRoute("/report")({
   component: ReportPage,
 });
 
+type Field = "hornet_count" | "behaviour" | "nest_status" | "hives_total" | "hives_lost" | "intervention_type" | "notes";
 const inputCls = "w-full rounded-lg border bg-card px-3 py-3 text-base";
 const MALTA = { minLat: 35.78, maxLat: 36.1, minLng: 14.15, maxLng: 14.6 };
 
@@ -32,23 +33,23 @@ function ReportPage() {
   const [pos, setPos] = useState<{ lat: number; lng: number } | null>(null);
   const [locality, setLocality] = useState("");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [f, setF] = useState<Record<string, string>>({});
+  const [f, setF] = useState<Partial<Record<Field, string>>>({});
   const [photo, setPhoto] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
-  const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+  const set = (k: Field) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setF({ ...f, [k]: e.target.value });
 
   const pick = (lat: number, lng: number) => {
     if (lat < MALTA.minLat || lat > MALTA.maxLat || lng < MALTA.minLng || lng > MALTA.maxLng) {
       toast.error("Please pick a location in Malta or Gozo");
-      return;
+      return undefined;
     }
     setPos({ lat, lng });
     setLocality(nearestLocality(lat, lng));
   };
 
   const useMyLocation = () => {
-    if (!navigator.geolocation) return toast.error("Location not available on this device");
+    if (!navigator.geolocation) { toast.error("Location not available on this device"); return; }
     navigator.geolocation.getCurrentPosition(
       (p) => pick(p.coords.latitude, p.coords.longitude),
       () => toast.error("Couldn't get your location — tap the map instead"),
@@ -56,13 +57,13 @@ function ReportPage() {
     );
   };
 
-  const num = (k: string) => (f[k] ? Math.max(0, Math.round(Number(f[k]))) : null);
+  const num = (k: Field) => (f[k] ? Math.max(0, Math.round(Number(f[k]))) : null);
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent): Promise<void> {
     e.preventDefault();
-    if (!pos) return toast.error("Tap the map or use your location first");
-    if (type === "hive_damage" && num("hives_lost") === null) return toast.error("How many hives were lost or weakened?");
-    if (type === "intervention" && !f.intervention_type) return toast.error("Choose the intervention type");
+    if (!pos) { toast.error("Tap the map or use your location first"); return; }
+    if (type === "hive_damage" && num("hives_lost") === null) { toast.error("How many hives were lost or weakened?"); return; }
+    if (type === "intervention" && !f.intervention_type) { toast.error("Choose the intervention type"); return; }
     setBusy(true);
     try {
       // Duplicate check: same type, same day, within 200 m
@@ -88,7 +89,7 @@ function ReportPage() {
         nest_status: type === "nest" ? f.nest_status || "active" : null,
         hives_total: type === "hive_damage" ? num("hives_total") : null,
         hives_lost: type === "hive_damage" ? num("hives_lost") : null,
-        intervention_type: type === "intervention" ? f.intervention_type : null,
+        intervention_type: type === "intervention" ? (f.intervention_type ?? null) : null,
         notes: f.notes?.trim().slice(0, 1000) || null,
         photo_url,
       });

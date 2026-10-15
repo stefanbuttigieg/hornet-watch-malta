@@ -59,7 +59,7 @@ function Dashboard() {
       row[t.locality ?? t.id.slice(0, 6)] = c.count;
       byDate.set(c.caught_on, row);
     }
-    return [...byDate.values()].sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    return [...byDate.values()].sort((a, b) => String(a["date"]).localeCompare(String(b["date"])));
   }, [catches, traps]);
 
   const typeRanking = useMemo(() => {
@@ -209,12 +209,12 @@ function LogCatch({ traps }: { traps: Report[] }) {
   return (
     <form
       className="flex flex-wrap items-end gap-2 rounded-xl border bg-card p-3"
-      onSubmit={async (e) => {
+      onSubmit={async (e): Promise<void> => {
         e.preventDefault();
         const n = Math.round(Number(count));
-        if (!trap || !Number.isFinite(n) || n < 0) return toast.error("Choose a trap and enter a count");
+        if (!trap || !Number.isFinite(n) || n < 0) { toast.error("Choose a trap and enter a count"); return; }
         const { error } = await supabase.from("trap_catches").insert({ report_id: trap, count: n, caught_on: date });
-        if (error) return toast.error("Couldn't save");
+        if (error) { toast.error("Couldn't save"); return; }
         setCount("");
         qc.invalidateQueries({ queryKey: ["trap_catches"] });
         toast.success("Catch logged");

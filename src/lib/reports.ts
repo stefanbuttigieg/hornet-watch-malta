@@ -59,7 +59,7 @@ export const LOCALITIES: { name: string; lat: number; lng: number }[] = [
 ];
 
 export function nearestLocality(lat: number, lng: number) {
-  let best = LOCALITIES[0];
+  let best = LOCALITIES[0]!;
   let bestD = Infinity;
   for (const l of LOCALITIES) {
     const d = (l.lat - lat) ** 2 + (l.lng - lng) ** 2;
