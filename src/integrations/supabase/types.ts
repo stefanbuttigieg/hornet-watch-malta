@@ -14,13 +14,107 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      reports: {
+        Row: {
+          behaviour: string | null
+          created_at: string
+          flag_count: number
+          hidden: boolean
+          hives_lost: number | null
+          hives_total: number | null
+          hornet_count: number | null
+          id: string
+          intervention_type: string | null
+          is_demo: boolean
+          lat: number
+          lng: number
+          locality: string | null
+          nest_status: string | null
+          notes: string | null
+          observed_on: string
+          photo_url: string | null
+          type: string
+        }
+        Insert: {
+          behaviour?: string | null
+          created_at?: string
+          flag_count?: number
+          hidden?: boolean
+          hives_lost?: number | null
+          hives_total?: number | null
+          hornet_count?: number | null
+          id?: string
+          intervention_type?: string | null
+          is_demo?: boolean
+          lat: number
+          lng: number
+          locality?: string | null
+          nest_status?: string | null
+          notes?: string | null
+          observed_on?: string
+          photo_url?: string | null
+          type: string
+        }
+        Update: {
+          behaviour?: string | null
+          created_at?: string
+          flag_count?: number
+          hidden?: boolean
+          hives_lost?: number | null
+          hives_total?: number | null
+          hornet_count?: number | null
+          id?: string
+          intervention_type?: string | null
+          is_demo?: boolean
+          lat?: number
+          lng?: number
+          locality?: string | null
+          nest_status?: string | null
+          notes?: string | null
+          observed_on?: string
+          photo_url?: string | null
+          type?: string
+        }
+        Relationships: []
+      }
+      trap_catches: {
+        Row: {
+          caught_on: string
+          count: number
+          created_at: string
+          id: string
+          report_id: string
+        }
+        Insert: {
+          caught_on?: string
+          count: number
+          created_at?: string
+          id?: string
+          report_id: string
+        }
+        Update: {
+          caught_on?: string
+          count?: number
+          created_at?: string
+          id?: string
+          report_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trap_catches_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "reports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      flag_report: { Args: { _id: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
