@@ -11,9 +11,9 @@ import { catchesQuery, reportsQuery, reportsToCsv, INTERVENTION_LABEL, type Repo
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Intervention impact — Dabbur Watch Malta" },
+      { title: "Intervention impact — Hornet Watch Malta" },
       { name: "description", content: "See whether hornet traps, nest removals and other interventions in Malta are reducing sightings and hive losses." },
-      { property: "og:title", content: "Intervention impact — Dabbur Watch Malta" },
+      { property: "og:title", content: "Intervention impact — Hornet Watch Malta" },
       { property: "og:description", content: "Before/after analysis, trap catch trends and locality hotspots for the oriental hornet in Malta." },
     ],
   }),
