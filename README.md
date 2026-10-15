@@ -1,14 +1,18 @@
-# Welcome to your Lovable project
+# Hornet Watch Malta
+
+Currently we had an oriental hornet invasion/surge in Malta and a large number of bee hives are being destroyed in the process as a result. Could you help me develop a tool that would help beekeepers and policy makers map this and ensure that the applied interventions would work
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://hornet-watch-malta.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/d2d19411-546c-4940-ae3a-c448c58b01c2).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +24,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
