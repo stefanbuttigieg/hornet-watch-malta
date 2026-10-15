@@ -8,9 +8,9 @@ import { reportsQuery, TYPE_LABEL, type ReportType } from "@/lib/reports";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dabbur Watch Malta — Oriental hornet live map" },
+      { title: "Hornet Watch Malta — Oriental hornet live map" },
       { name: "description", content: "Report and track oriental hornet sightings, nests, hive losses and interventions across Malta and Gozo." },
-      { property: "og:title", content: "Dabbur Watch Malta — Oriental hornet live map" },
+      { property: "og:title", content: "Hornet Watch Malta — Oriental hornet live map" },
       { property: "og:description", content: "A shared map for beekeepers and policy makers fighting the oriental hornet in Malta." },
     ],
   }),

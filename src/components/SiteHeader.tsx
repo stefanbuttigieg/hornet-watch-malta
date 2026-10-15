@@ -12,7 +12,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
         <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold">
           <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground" aria-hidden>⬢</span>
-          <span className="hidden sm:inline">Dabbur Watch Malta</span>
+          <span className="hidden sm:inline">Hornet Watch Malta</span>
           
         </Link>
         <nav className="ml-auto flex items-center gap-1 text-sm">

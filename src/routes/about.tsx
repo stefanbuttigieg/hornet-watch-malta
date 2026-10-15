@@ -4,9 +4,9 @@ import { SiteHeader } from "@/components/SiteHeader";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Oriental hornet guide — Dabbur Watch Malta" },
+      { title: "Oriental hornet guide — Hornet Watch Malta" },
       { name: "description", content: "How to recognise the oriental hornet (Vespa orientalis), stay safe, and what to do if you find a nest in Malta." },
-      { property: "og:title", content: "Oriental hornet guide — Dabbur Watch Malta" },
+      { property: "og:title", content: "Oriental hornet guide — Hornet Watch Malta" },
       { property: "og:description", content: "Identify Vespa orientalis, protect your hives and report nests safely." },
     ],
   }),

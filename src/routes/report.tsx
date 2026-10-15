@@ -13,9 +13,9 @@ import {
 export const Route = createFileRoute("/report")({
   head: () => ({
     meta: [
-      { title: "Report hornet activity — Dabbur Watch Malta" },
+      { title: "Report hornet activity — Hornet Watch Malta" },
       { name: "description", content: "Log an oriental hornet sighting, nest, hive loss or intervention in under a minute." },
-      { property: "og:title", content: "Report hornet activity — Dabbur Watch Malta" },
+      { property: "og:title", content: "Report hornet activity — Hornet Watch Malta" },
       { property: "og:description", content: "Help map the oriental hornet in Malta: report sightings, nests, hive losses and interventions." },
     ],
   }),

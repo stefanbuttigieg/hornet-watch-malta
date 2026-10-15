@@ -9,10 +9,10 @@ import { TYPE_LABEL } from "@/lib/reports";
 export const Route = createFileRoute("/moderate")({
   head: () => ({
     meta: [
-      { title: "Moderation — Dabbur Watch Malta" },
+      { title: "Moderation — Hornet Watch Malta" },
       { name: "description", content: "Moderator tools for reviewing flagged hornet reports." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Moderation — Dabbur Watch Malta" },
+      { property: "og:title", content: "Moderation — Hornet Watch Malta" },
       { property: "og:description", content: "Moderator tools for reviewing flagged hornet reports." },
     ],
   }),
