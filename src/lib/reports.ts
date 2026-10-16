@@ -145,7 +145,7 @@ export async function openPhoto(path: string) {
 export function reportsToCsv(rows: Report[]): string {
   const cols: (keyof Report)[] = [
     "id", "type", "observed_on", "locality", "lat", "lng", "hornet_count", "behaviour",
-    "nest_status", "hives_total", "hives_lost", "intervention_type", "notes", "is_demo", "flag_count",
+    "nest_status", "hives_total", "hives_lost", "intervention_type", "notes", "is_demo", "flag_count", "confirm_count",
   ];
   const esc = (v: unknown) => {
     const s = v === null || v === undefined ? "" : String(v);

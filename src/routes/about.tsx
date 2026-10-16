@@ -43,6 +43,24 @@ function About() {
           <li>Use selective traps away from the apiary and log weekly catch counts on the Impact page.</li>
           <li>Report every intervention with its start date — this is how we measure what works.</li>
         </Section>
+        <Section title="Confirming other reports">
+          <li>Saw the same hornets or nest? Tap a pin on the map and press “I saw this too”.</li>
+          <li>Confirmed reports carry more weight for beekeepers and policy makers.</li>
+        </Section>
+        <section id="feedback" className="space-y-2 rounded-2xl border bg-card p-5">
+          <h2 className="text-xl font-bold">Feedback, bugs & missing information</h2>
+          <p>Found a problem, a wrong locality, or have an idea? Tell us either way:</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>
+              <strong>GitHub:</strong> open an issue on the project's GitHub repository (Issues tab → “New issue”). Describe what happened, the page, your device, and add a screenshot if you can.
+            </li>
+            <li>
+              <strong>Email:</strong>{" "}
+              <a className="font-semibold underline" href="mailto:info@stefanbuttigieg.com?subject=Hornet%20Watch%20Malta%20feedback">info@stefanbuttigieg.com</a>{" "}
+              — no GitHub account needed.
+            </li>
+          </ul>
+        </section>
         <Link to="/report" className="inline-block rounded-xl bg-primary px-6 py-3 font-bold text-primary-foreground">Report activity</Link>
       </main>
     </div>
