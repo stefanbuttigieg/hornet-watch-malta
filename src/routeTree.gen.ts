@@ -16,6 +16,7 @@ import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as CreditsRouteImport } from './routes/credits'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataRequestRouteImport } from './routes/data-request'
+import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ModerateRouteImport } from './routes/moderate'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReportRouteImport } from './routes/report'
@@ -56,6 +57,11 @@ const DataRequestRoute = DataRequestRouteImport.update({
   path: '/data-request',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModerateRoute = ModerateRouteImport.update({
   id: '/moderate',
   path: '/moderate',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/data-request': typeof DataRequestRoute
+  '/donate': typeof DonateRoute
   '/moderate': typeof ModerateRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/data-request': typeof DataRequestRoute
+  '/donate': typeof DonateRoute
   '/moderate': typeof ModerateRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/data-request': typeof DataRequestRoute
+  '/donate': typeof DonateRoute
   '/moderate': typeof ModerateRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/credits'
     | '/dashboard'
     | '/data-request'
+    | '/donate'
     | '/moderate'
     | '/privacy'
     | '/report'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/credits'
     | '/dashboard'
     | '/data-request'
+    | '/donate'
     | '/moderate'
     | '/privacy'
     | '/report'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/credits'
     | '/dashboard'
     | '/data-request'
+    | '/donate'
     | '/moderate'
     | '/privacy'
     | '/report'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   CreditsRoute: typeof CreditsRoute
   DashboardRoute: typeof DashboardRoute
   DataRequestRoute: typeof DataRequestRoute
+  DonateRoute: typeof DonateRoute
   ModerateRoute: typeof ModerateRoute
   PrivacyRoute: typeof PrivacyRoute
   ReportRoute: typeof ReportRoute
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DataRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moderate': {
       id: '/moderate'
       path: '/moderate'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   CreditsRoute: CreditsRoute,
   DashboardRoute: DashboardRoute,
   DataRequestRoute: DataRequestRoute,
+  DonateRoute: DonateRoute,
   ModerateRoute: ModerateRoute,
   PrivacyRoute: PrivacyRoute,
   ReportRoute: ReportRoute,

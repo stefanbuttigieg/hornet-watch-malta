@@ -7,6 +7,7 @@ const links = [
   { to: "/accessibility", label: "Accessibility" },
   { to: "/data-request", label: "Your data" },
   { to: "/credits", label: "Credits & Sources" },
+  { to: "/donate", label: "☕ Donate" },
 ] as const;
 
 export function SiteFooter() {
