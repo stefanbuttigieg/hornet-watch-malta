@@ -17,6 +17,7 @@ export type Database = {
       reports: {
         Row: {
           behaviour: string | null
+          confirm_count: number
           created_at: string
           flag_count: number
           hidden: boolean
@@ -37,6 +38,7 @@ export type Database = {
         }
         Insert: {
           behaviour?: string | null
+          confirm_count?: number
           created_at?: string
           flag_count?: number
           hidden?: boolean
@@ -57,6 +59,7 @@ export type Database = {
         }
         Update: {
           behaviour?: string | null
+          confirm_count?: number
           created_at?: string
           flag_count?: number
           hidden?: boolean
@@ -114,6 +117,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      confirm_report: { Args: { _id: string }; Returns: number }
       flag_report: { Args: { _id: string }; Returns: undefined }
     }
     Enums: {
