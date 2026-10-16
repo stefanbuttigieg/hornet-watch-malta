@@ -28,6 +28,19 @@ function About() {
           <li>Often seen hovering (“hawking”) in front of hives, catching bees in flight.</li>
           <li>Nests are usually underground, in walls, rubble or tree cavities.</li>
         </Section>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {PHOTOS.map((p) => (
+            <figure key={p.src} className={`overflow-hidden rounded-2xl border bg-card ${p.wide ? "sm:col-span-2" : ""}`}>
+              <img src={p.src} alt={p.alt} loading="lazy" width={960} height={640} className="h-auto w-full object-cover" />
+              <figcaption className="space-y-1 p-3 text-sm">
+                <div>{p.caption}</div>
+                <div className="text-xs text-muted-foreground">
+                  Photo: {p.credit}, <a className="underline" href={p.source} target="_blank" rel="noopener noreferrer">{p.license}</a> via Wikimedia Commons
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
         <Section title="Stay safe">
           <li>Never try to destroy a nest yourself — stings can be dangerous, especially with many hornets.</li>
           <li>Keep at least 5 metres from a nest entrance and avoid vibrations near it.</li>
