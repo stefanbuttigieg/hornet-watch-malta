@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      news_articles: {
+        Row: {
+          created_at: string
+          id: string
+          published_at: string | null
+          source: string | null
+          title: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          published_at?: string | null
+          source?: string | null
+          title: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          published_at?: string | null
+          source?: string | null
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      news_refresh_state: {
+        Row: {
+          id: number
+          last_run_at: string
+        }
+        Insert: {
+          id?: number
+          last_run_at?: string
+        }
+        Update: {
+          id?: number
+          last_run_at?: string
+        }
+        Relationships: []
+      }
       reports: {
         Row: {
           behaviour: string | null
