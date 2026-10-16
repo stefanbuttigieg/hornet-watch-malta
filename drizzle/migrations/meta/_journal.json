@@ -15,6 +15,13 @@
       "when": 1792151940673,
       "tag": "0001_report_confirmations",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792159580434,
+      "tag": "0002_news_articles",
+      "breakpoints": true
     }
   ]
 }
