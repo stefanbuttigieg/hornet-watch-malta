@@ -97,7 +97,7 @@ function ReportPage() {
         notes: f.notes?.trim().slice(0, 1000) || null,
         photo_url,
       });
-      if (error) throw error;
+      if (error) throw new Error(error.message.replace(/^RATE_LIMIT:\s*/, ""));
       await qc.invalidateQueries({ queryKey: ["reports"] });
       toast.success("Thank you — report added to the map");
       nav({ to: "/" });

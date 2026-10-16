@@ -56,6 +56,24 @@ export type Database = {
         }
         Relationships: []
       }
+      report_submissions: {
+        Row: {
+          created_at: string
+          id: number
+          submitter_hash: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          submitter_hash: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          submitter_hash?: string
+        }
+        Relationships: []
+      }
       reports: {
         Row: {
           behaviour: string | null

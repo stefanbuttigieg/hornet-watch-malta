@@ -31,14 +31,14 @@ const decode = (s: string) =>
 
 const tag = (xml: string, name: string) => {
   const m = xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`));
-  return m ? decode(m[1]) : null;
+  return m?.[1] != null ? decode(m[1]) : null;
 };
 
 /** Parse an RSS feed and keep only hornet-related items from 2026 on. */
 export function parseNewsRss(xml: string): NewsItem[] {
   const out: NewsItem[] = [];
   for (const m of xml.matchAll(/<item>([\s\S]*?)<\/item>/g)) {
-    const it = m[1];
+    const it = m[1] ?? "";
     const url = tag(it, "link");
     let title = tag(it, "title");
     if (!url || !title) continue;

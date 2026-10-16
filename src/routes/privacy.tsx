@@ -29,6 +29,7 @@ function Privacy() {
           <li>Anonymous counters when you confirm or flag a report.</li>
           <li>We do <strong>not</strong> ask for your name, email or phone number, and there are no user accounts.</li>
           <li>Like any website, our hosting provider processes technical data (such as IP address and browser type) to deliver the site and keep it secure.</li>
+          <li>To stop abuse, each report you send records a scrambled, one-way code made from your IP address (not the address itself, and never shown with your report). It is used only to limit everyone to 5 reports an hour and is deleted after 2 days.</li>
         </ul>
       </LegalSection>
       <LegalSection title="Why we use it (legal basis)">
