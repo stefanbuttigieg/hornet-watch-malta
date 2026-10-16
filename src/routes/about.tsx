@@ -30,9 +30,9 @@ const PHOTOS = [
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/about" }],
+    links: [{ rel: "canonical", href: "https://hornetwatchmalta.live/about" }],
     meta: [
-      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/about" },
+      { property: "og:url", content: "https://hornetwatchmalta.live/about" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { title: "Oriental hornet guide — Hornet Watch Malta" },

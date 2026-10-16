@@ -8,9 +8,9 @@ import { TYPE_LABEL } from "@/lib/reports";
 
 export const Route = createFileRoute("/moderate")({
   head: () => ({
-    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/moderate" }],
+    links: [{ rel: "canonical", href: "https://hornetwatchmalta.live/moderate" }],
     meta: [
-      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/moderate" },
+      { property: "og:url", content: "https://hornetwatchmalta.live/moderate" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },

@@ -3,9 +3,9 @@ import { LegalPage, LegalSection } from "@/components/LegalPage";
 
 export const Route = createFileRoute("/credits")({
   head: () => ({
-    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/credits" }],
+    links: [{ rel: "canonical", href: "https://hornetwatchmalta.live/credits" }],
     meta: [
-      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/credits" },
+      { property: "og:url", content: "https://hornetwatchmalta.live/credits" },
       { title: "Credits & Sources — Hornet Watch Malta" },
       { name: "description", content: "Photo credits, licences and information sources used by Hornet Watch Malta." },
       { property: "og:title", content: "Credits & Sources — Hornet Watch Malta" },
