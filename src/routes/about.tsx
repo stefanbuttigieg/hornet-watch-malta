@@ -1,5 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import hornet1 from "@/assets/guide/hornet-1.jpg";
+import hornet2 from "@/assets/guide/hornet-2.jpg";
+import hornetComb from "@/assets/guide/hornet-comb.jpg";
+
+const PHOTOS = [
+  {
+    src: hornet1, wide: true,
+    alt: "Oriental hornet with reddish-brown body and yellow abdomen bands feeding on prickly pear fruit",
+    caption: "Close-up: reddish-brown body with the bright yellow band near the tail. Often seen on ripe fruit such as prickly pears.",
+    credit: "Zeynel Cebeci", license: "CC BY-SA 4.0",
+    source: "https://commons.wikimedia.org/wiki/File:Do%C4%9Fu_E%C5%9Fekar%C4%B1s%C4%B1_-_Vespa_orientalis_-_Oriental_hornet_01.JPG",
+  },
+  {
+    src: hornet2, wide: false,
+    alt: "Several oriental hornets at a nest entrance in a limestone rock face",
+    caption: "Hornets going in and out of a nest in a rock crevice — typical of rubble walls and rock faces in Malta.",
+    credit: "Kreta", license: "Public domain",
+    source: "https://commons.wikimedia.org/wiki/File:Oosterse_hoornaar_Vespa_orientalis.JPG",
+  },
+  {
+    src: hornetComb, wide: false,
+    alt: "Grey papery comb cells from an oriental hornet nest",
+    caption: "Inside a nest: grey, papery comb. If you see this, keep away and contact a pest controller.",
+    credit: "Zeynel Cebeci", license: "CC BY-SA 4.0",
+    source: "https://commons.wikimedia.org/wiki/File:Comb_of_Vespa_orientalis_-_Oriental_hornet,_Adana_2016-12-04_01-1.jpg",
+  },
+];
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -28,6 +55,19 @@ function About() {
           <li>Often seen hovering (“hawking”) in front of hives, catching bees in flight.</li>
           <li>Nests are usually underground, in walls, rubble or tree cavities.</li>
         </Section>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {PHOTOS.map((p) => (
+            <figure key={p.src} className={`overflow-hidden rounded-2xl border bg-card ${p.wide ? "sm:col-span-2" : ""}`}>
+              <img src={p.src} alt={p.alt} loading="lazy" width={960} height={640} className="h-auto w-full object-cover" />
+              <figcaption className="space-y-1 p-3 text-sm">
+                <div>{p.caption}</div>
+                <div className="text-xs text-muted-foreground">
+                  Photo: {p.credit}, <a className="underline" href={p.source} target="_blank" rel="noopener noreferrer">{p.license}</a> via Wikimedia Commons
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
         <Section title="Stay safe">
           <li>Never try to destroy a nest yourself — stings can be dangerous, especially with many hornets.</li>
           <li>Keep at least 5 metres from a nest entrance and avoid vibrations near it.</li>
