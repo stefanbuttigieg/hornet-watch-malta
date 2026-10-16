@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DataRequestRouteImport } from './routes/data-request'
 import { Route as ModerateRouteImport } from './routes/moderate'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReportRouteImport } from './routes/report'
@@ -44,6 +45,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DataRequestRoute = DataRequestRouteImport.update({
+  id: '/data-request',
+  path: '/data-request',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModerateRoute = ModerateRouteImport.update({
   id: '/moderate',
   path: '/moderate',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/accessibility': typeof AccessibilityRoute
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
+  '/data-request': typeof DataRequestRoute
   '/moderate': typeof ModerateRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/accessibility': typeof AccessibilityRoute
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
+  '/data-request': typeof DataRequestRoute
   '/moderate': typeof ModerateRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/accessibility': typeof AccessibilityRoute
   '/cookies': typeof CookiesRoute
   '/dashboard': typeof DashboardRoute
+  '/data-request': typeof DataRequestRoute
   '/moderate': typeof ModerateRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/cookies'
     | '/dashboard'
+    | '/data-request'
     | '/moderate'
     | '/privacy'
     | '/report'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/cookies'
     | '/dashboard'
+    | '/data-request'
     | '/moderate'
     | '/privacy'
     | '/report'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/cookies'
     | '/dashboard'
+    | '/data-request'
     | '/moderate'
     | '/privacy'
     | '/report'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   AccessibilityRoute: typeof AccessibilityRoute
   CookiesRoute: typeof CookiesRoute
   DashboardRoute: typeof DashboardRoute
+  DataRequestRoute: typeof DataRequestRoute
   ModerateRoute: typeof ModerateRoute
   PrivacyRoute: typeof PrivacyRoute
   ReportRoute: typeof ReportRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/data-request': {
+      id: '/data-request'
+      path: '/data-request'
+      fullPath: '/data-request'
+      preLoaderRoute: typeof DataRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moderate': {
       id: '/moderate'
       path: '/moderate'
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccessibilityRoute: AccessibilityRoute,
   CookiesRoute: CookiesRoute,
   DashboardRoute: DashboardRoute,
+  DataRequestRoute: DataRequestRoute,
   ModerateRoute: ModerateRoute,
   PrivacyRoute: PrivacyRoute,
   ReportRoute: ReportRoute,

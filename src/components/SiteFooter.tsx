@@ -5,6 +5,7 @@ const links = [
   { to: "/cookies", label: "Cookies Policy" },
   { to: "/terms", label: "Terms & Conditions" },
   { to: "/accessibility", label: "Accessibility" },
+  { to: "/data-request", label: "Your data" },
 ] as const;
 
 export function SiteFooter() {
