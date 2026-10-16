@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as CreditsRouteImport } from './routes/credits'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataRequestRouteImport } from './routes/data-request'
 import { Route as ModerateRouteImport } from './routes/moderate'
@@ -38,6 +39,11 @@ const AccessibilityRoute = AccessibilityRouteImport.update({
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreditsRoute = CreditsRouteImport.update({
+  id: '/credits',
+  path: '/credits',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/cookies': typeof CookiesRoute
+  '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/data-request': typeof DataRequestRoute
   '/moderate': typeof ModerateRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/cookies': typeof CookiesRoute
+  '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/data-request': typeof DataRequestRoute
   '/moderate': typeof ModerateRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/cookies': typeof CookiesRoute
+  '/credits': typeof CreditsRoute
   '/dashboard': typeof DashboardRoute
   '/data-request': typeof DataRequestRoute
   '/moderate': typeof ModerateRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/cookies'
+    | '/credits'
     | '/dashboard'
     | '/data-request'
     | '/moderate'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/cookies'
+    | '/credits'
     | '/dashboard'
     | '/data-request'
     | '/moderate'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/cookies'
+    | '/credits'
     | '/dashboard'
     | '/data-request'
     | '/moderate'
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
   CookiesRoute: typeof CookiesRoute
+  CreditsRoute: typeof CreditsRoute
   DashboardRoute: typeof DashboardRoute
   DataRequestRoute: typeof DataRequestRoute
   ModerateRoute: typeof ModerateRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/credits': {
+      id: '/credits'
+      path: '/credits'
+      fullPath: '/credits'
+      preLoaderRoute: typeof CreditsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -240,6 +260,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
   CookiesRoute: CookiesRoute,
+  CreditsRoute: CreditsRoute,
   DashboardRoute: DashboardRoute,
   DataRequestRoute: DataRequestRoute,
   ModerateRoute: ModerateRoute,

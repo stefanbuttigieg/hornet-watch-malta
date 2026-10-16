@@ -6,6 +6,7 @@ const links = [
   { to: "/terms", label: "Terms & Conditions" },
   { to: "/accessibility", label: "Accessibility" },
   { to: "/data-request", label: "Your data" },
+  { to: "/credits", label: "Credits & Sources" },
 ] as const;
 
 export function SiteFooter() {
