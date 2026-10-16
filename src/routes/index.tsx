@@ -80,7 +80,8 @@ function MapPage() {
       <div className="relative flex-1">
         <LazyMap reports={filtered} heat={heat} />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[500] p-3">
-          <div className="pointer-events-auto mx-auto grid max-w-xl grid-cols-3 gap-2 rounded-xl bg-ink p-3 text-ink-foreground shadow-lg">
+          <div className="pointer-events-auto mx-auto grid max-w-xl grid-cols-4 gap-2 rounded-xl bg-ink p-3 text-ink-foreground shadow-lg">
+            <Stat n={filtered.length} l="reports" />
             <Stat n={counts.sightings} l="hornets seen" />
             <Stat n={counts.nests} l="active nests" />
             <Stat n={counts.lost} l="hives lost" />
