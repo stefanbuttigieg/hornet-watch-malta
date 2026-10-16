@@ -49,6 +49,22 @@ function About() {
           <h1 className="text-3xl font-bold">Know the oriental hornet</h1>
           <p className="mt-2 opacity-80">Vespa orientalis — locally “id-dabbur ahmar”. It hunts honeybees at the hive entrance and can wipe out weak colonies in late summer and autumn.</p>
         </div>
+        <section className="space-y-2">
+          <h2 className="text-xl font-bold">About the species in Malta</h2>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>The largest wasp found in Europe and Malta (<em>Vespa orientalis</em> Linnaeus, 1771; family Vespidae).</li>
+            <li>Despite its name, it is native to the Maltese Islands. It became very rare in the 1960s–70s, but numbers have risen again, mostly around towns and apiaries.</li>
+            <li>Adults feed on nectar and sugary foods for energy, and hunt insects (including honeybees) to feed their larvae.</li>
+            <li>Colonies are seasonal: a single queen starts a new nest in spring. In Malta the active season runs roughly from late April to mid-November.</li>
+            <li>It is not aggressive to people unless threatened — avoid touching it or waving your hands.</li>
+          </ul>
+          <p className="text-xs text-muted-foreground">
+            Sources:{" "}
+            <a className="underline" href="https://maltawildplants.com/!faunafungi/maltawildlife.php?species=Vespa+orientalis" target="_blank" rel="noopener noreferrer">Wild Plants of Malta and Gozo</a>,{" "}
+            <a className="underline" href="https://era.org.mt/wp-content/uploads/2023/05/BioSnippet_60-Oriental_Hornet.pdf" target="_blank" rel="noopener noreferrer">Environment and Resources Authority (ERA)</a>,{" "}
+            <a className="underline" href="https://www.um.edu.mt/library/oar/handle/123456789/96311" target="_blank" rel="noopener noreferrer">Albanozzo (2021), University of Malta</a>.
+          </p>
+        </section>
         <Section title="How to recognise it">
           <li>Large (2.5–3.5 cm), reddish-brown body.</li>
           <li>One or two bright yellow bands near the end of the abdomen, and a yellow patch on the face.</li>
