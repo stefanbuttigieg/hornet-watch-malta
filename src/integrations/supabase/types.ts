@@ -41,6 +41,21 @@ export type Database = {
         }
         Relationships: []
       }
+      news_refresh_state: {
+        Row: {
+          id: number
+          last_run_at: string
+        }
+        Insert: {
+          id?: number
+          last_run_at?: string
+        }
+        Update: {
+          id?: number
+          last_run_at?: string
+        }
+        Relationships: []
+      }
       reports: {
         Row: {
           behaviour: string | null
