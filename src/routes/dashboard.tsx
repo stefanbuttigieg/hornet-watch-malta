@@ -111,6 +111,22 @@ function Dashboard() {
           <button onClick={download} className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-ink-foreground">Download all data (CSV)</button>
         </div>
 
+        <section aria-label="Number of reports" className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {[
+            { label: "All reports", n: reports.length },
+            { label: "Hornet sightings", n: reports.filter((r) => r.type === "sighting").length },
+            { label: "Nests found", n: reports.filter((r) => r.type === "nest").length },
+            { label: "Hive damage", n: reports.filter((r) => r.type === "hive_damage").length },
+            { label: "Interventions", n: interventions.length },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl border bg-card p-4">
+              <div className="font-display text-3xl font-bold">{s.n}</div>
+              <div className="text-sm text-muted-foreground">{s.label}</div>
+            </div>
+          ))}
+        </section>
+
+
         <section className="space-y-3">
           <h2 className="text-xl font-bold">Before / after by intervention</h2>
           <div className="grid gap-3 md:grid-cols-2">
