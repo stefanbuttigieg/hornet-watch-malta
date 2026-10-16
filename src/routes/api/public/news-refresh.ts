@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { authenticateCronRequest } from "@/integrations/supabase/cron-auth";
 import { googleNewsUrl, NEWS_QUERIES, parseNewsRss, type NewsItem } from "@/lib/news";
 
 // Called daily by the scheduler. Only fetches public news and stores headlines,
-// and refuses to run more than once every 30 minutes, so no secret is needed.
-async function refresh() {
+// Only the scheduler may call it, and it refuses to run twice within 30 minutes.
+async function refresh({ request }: { request: Request }) {
+  const authFailure = await authenticateCronRequest(request);
+  if (authFailure) return authFailure;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const cutoff = new Date(Date.now() - 30 * 60000).toISOString();
   const { data: locked } = await supabaseAdmin
@@ -41,5 +44,5 @@ async function refresh() {
 }
 
 export const Route = createFileRoute("/api/public/news-refresh")({
-  server: { handlers: { POST: refresh, GET: refresh } },
+  server: { handlers: { POST: refresh } },
 });
