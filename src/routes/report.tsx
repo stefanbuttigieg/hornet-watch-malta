@@ -40,6 +40,8 @@ function ReportPage() {
   const [f, setF] = useState<Partial<Record<Field, string>>>({});
   const [photo, setPhoto] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
+  const trapRef = useRef<HTMLInputElement>(null);
+  const openedAt = useRef(Date.now());
   const set = (k: Field) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setF({ ...f, [k]: e.target.value });
 
@@ -65,6 +67,11 @@ function ReportPage() {
 
   async function submit(e: React.FormEvent): Promise<void> {
     e.preventDefault();
+    // Invisible bot check: hidden field filled, or form sent faster than a person could.
+    if (isLikelyBot(trapRef.current?.value ?? "", Date.now() - openedAt.current)) {
+      toast.error("Something went wrong. Please wait a moment and try again.");
+      return;
+    }
     if (!pos) { toast.error("Tap the map or use your location first"); return; }
     if (type === "hive_damage" && num("hives_lost") === null) { toast.error("How many hives were lost or weakened?"); return; }
     if (type === "intervention" && !f.intervention_type) { toast.error("Choose the intervention type"); return; }
@@ -113,6 +120,10 @@ function ReportPage() {
       <SiteHeader />
       <form onSubmit={submit} className="mx-auto max-w-2xl space-y-6 px-4 py-6">
         <h1 className="text-3xl font-bold">Report hornet activity</h1>
+        {/* Bot trap: hidden from people and screen readers; bots tend to fill every field. */}
+        <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+          <label>Website<input ref={trapRef} type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" /></label>
+        </div>
 
         <fieldset className="grid grid-cols-2 gap-2">
           {(Object.keys(TYPE_LABEL) as ReportType[]).map((t) => (
