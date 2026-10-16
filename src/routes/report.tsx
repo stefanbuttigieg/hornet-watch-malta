@@ -107,7 +107,7 @@ function ReportPage() {
       });
       if (error) throw new Error(error.message.replace(/^RATE_LIMIT:\s*/, ""));
       await qc.invalidateQueries({ queryKey: ["reports"] });
-      toast.success("Thank you — report added to the map");
+      toast.success("Thank you — report received", { description: "Most reports appear on the map straight away. Unusual ones (very large numbers, or many from one spot) show after a quick check." });
       nav({ to: "/" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Couldn't save the report");

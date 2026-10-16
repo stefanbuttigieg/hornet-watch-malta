@@ -36,6 +36,20 @@
       "when": 1792159710015,
       "tag": "0004_report_rate_limit",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792159852779,
+      "tag": "0005_hold_suspicious_reports",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792159894923,
+      "tag": "0006_fix_hold_reasons",
+      "breakpoints": true
     }
   ]
 }

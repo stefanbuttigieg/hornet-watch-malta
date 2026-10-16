@@ -13,7 +13,8 @@ export const listForModeration = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await supabaseAdmin
       .from("reports")
-      .select("id,type,observed_on,locality,notes,flag_count,hidden,is_demo,created_at")
+      .select("id,type,observed_on,locality,notes,flag_count,hidden,is_demo,created_at,pending_review,review_reason,hornet_count,hives_lost,hives_total")
+      .order("pending_review", { ascending: false })
       .order("flag_count", { ascending: false })
       .order("created_at", { ascending: false })
       .limit(200);
@@ -39,6 +40,16 @@ export const hideDemoData = createServerFn({ method: "POST" })
     checkPasscode(data.passcode);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("reports").update({ hidden: true }).eq("is_demo", true);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const approveReport = createServerFn({ method: "POST" })
+  .inputValidator((d) => z.object({ passcode: z.string().min(1).max(200), id: z.string().uuid() }).parse(d))
+  .handler(async ({ data }) => {
+    checkPasscode(data.passcode);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("reports").update({ pending_review: false, review_reason: null }).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

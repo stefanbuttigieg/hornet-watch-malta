@@ -93,7 +93,9 @@ export type Database = {
           nest_status: string | null
           notes: string | null
           observed_on: string
+          pending_review: boolean
           photo_url: string | null
+          review_reason: string | null
           type: string
         }
         Insert: {
@@ -114,7 +116,9 @@ export type Database = {
           nest_status?: string | null
           notes?: string | null
           observed_on?: string
+          pending_review?: boolean
           photo_url?: string | null
+          review_reason?: string | null
           type: string
         }
         Update: {
@@ -135,7 +139,9 @@ export type Database = {
           nest_status?: string | null
           notes?: string | null
           observed_on?: string
+          pending_review?: boolean
           photo_url?: string | null
+          review_reason?: string | null
           type?: string
         }
         Relationships: []

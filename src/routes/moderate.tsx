@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 import { SiteHeader } from "@/components/SiteHeader";
-import { listForModeration, setReportHidden, hideDemoData } from "@/lib/moderation.functions";
+import { listForModeration, setReportHidden, hideDemoData, approveReport } from "@/lib/moderation.functions";
 import { TYPE_LABEL } from "@/lib/reports";
 
 export const Route = createFileRoute("/moderate")({
@@ -30,6 +30,7 @@ function Moderate() {
   const list = useServerFn(listForModeration);
   const setHidden = useServerFn(setReportHidden);
   const hideDemo = useServerFn(hideDemoData);
+  const approve = useServerFn(approveReport);
   const [pass, setPass] = useState("");
   const [rows, setRows] = useState<Row[] | null>(null);
 
@@ -59,8 +60,20 @@ function Moderate() {
                   <div className="flex-1">
                     <div className="font-medium">{TYPE_LABEL[r.type as keyof typeof TYPE_LABEL]} · {r.locality ?? "—"} · {r.observed_on}</div>
                     <div className="text-muted-foreground">{r.notes ?? ""} {r.is_demo ? "(demo)" : ""}</div>
+                    {(r.hornet_count != null || r.hives_lost != null) && (
+                      <div className="text-muted-foreground">
+                        {r.hornet_count != null && `${r.hornet_count} hornets `}
+                        {r.hives_lost != null && `${r.hives_lost}/${r.hives_total ?? "?"} hives lost`}
+                      </div>
+                    )}
+                    {r.pending_review && <div className="font-medium text-primary">Held for review: {r.review_reason}</div>}
                   </div>
                   {r.flag_count > 0 && <span className="rounded-full bg-destructive px-2 py-0.5 text-xs text-destructive-foreground">{r.flag_count} flags</span>}
+                  {r.pending_review && (
+                    <button
+                      onClick={async () => { await approve({ data: { passcode: pass, id: r.id } }); toast.success("Report published"); load(); }}
+                      className="rounded-lg bg-primary px-3 py-1.5 font-semibold text-primary-foreground">Approve</button>
+                  )}
                   <button
                     onClick={async () => { await setHidden({ data: { passcode: pass, id: r.id, hidden: !r.hidden } }); load(); }}
                     className="rounded-lg border px-3 py-1.5">{r.hidden ? "Restore" : "Hide"}</button>
