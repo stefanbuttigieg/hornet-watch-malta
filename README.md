@@ -61,6 +61,19 @@ The rule is deliberately simple so anyone can check it. It lives in [`src/lib/ef
 
 > ⚠️ Results reflect what people report, not a controlled study. Small counts can produce large percentages, and reporting effort varies by area and season. Treat verdicts as signals for further investigation.
 
+## Public API
+
+Read-only JSON, no key needed, CORS open, cached for 60 seconds. Only reports that have not been hidden by moderators are returned. Photo files are never exposed (`has_photo` only).
+
+| Endpoint | Filters |
+| --- | --- |
+| `GET /api/public/v1/reports` | `type` (sighting, nest, hive_damage, intervention), `since`, `until` (YYYY-MM-DD), `locality`, `limit` (max 5000) |
+| `GET /api/public/v1/trap-catches` | `since`, `until`, `limit` |
+
+Example: `https://hornet-watch-malta.lovable.app/api/public/v1/reports?type=nest&since=2026-09-01`
+
+Response: `{ "count": 2, "data": [ ... ] }`
+
 ## Tech stack
 
 - [TanStack Start](https://tanstack.com/start) (React 19, Vite, server functions)

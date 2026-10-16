@@ -21,6 +21,8 @@ import { Route as ModerateRouteImport } from './routes/moderate'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ApiPublicV1ReportsRouteImport } from './routes/api/public/v1/reports'
+import { Route as ApiPublicV1TrapCatchesRouteImport } from './routes/api/public/v1/trap-catches'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +84,16 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicV1ReportsRoute = ApiPublicV1ReportsRouteImport.update({
+  id: '/api/public/v1/reports',
+  path: '/api/public/v1/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1TrapCatchesRoute = ApiPublicV1TrapCatchesRouteImport.update({
+  id: '/api/public/v1/trap-catches',
+  path: '/api/public/v1/trap-catches',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -96,6 +108,8 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
+  '/api/public/v1/reports': typeof ApiPublicV1ReportsRoute
+  '/api/public/v1/trap-catches': typeof ApiPublicV1TrapCatchesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +124,8 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
+  '/api/public/v1/reports': typeof ApiPublicV1ReportsRoute
+  '/api/public/v1/trap-catches': typeof ApiPublicV1TrapCatchesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +141,8 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
+  '/api/public/v1/reports': typeof ApiPublicV1ReportsRoute
+  '/api/public/v1/trap-catches': typeof ApiPublicV1TrapCatchesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +159,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/report'
     | '/terms'
+    | '/api/public/v1/reports'
+    | '/api/public/v1/trap-catches'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +175,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/report'
     | '/terms'
+    | '/api/public/v1/reports'
+    | '/api/public/v1/trap-catches'
   id:
     | '__root__'
     | '/'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/report'
     | '/terms'
+    | '/api/public/v1/reports'
+    | '/api/public/v1/trap-catches'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +208,8 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ReportRoute: typeof ReportRoute
   TermsRoute: typeof TermsRoute
+  ApiPublicV1ReportsRoute: typeof ApiPublicV1ReportsRoute
+  ApiPublicV1TrapCatchesRoute: typeof ApiPublicV1TrapCatchesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -272,6 +298,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/v1/reports': {
+      id: '/api/public/v1/reports'
+      path: '/api/public/v1/reports'
+      fullPath: '/api/public/v1/reports'
+      preLoaderRoute: typeof ApiPublicV1ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/trap-catches': {
+      id: '/api/public/v1/trap-catches'
+      path: '/api/public/v1/trap-catches'
+      fullPath: '/api/public/v1/trap-catches'
+      preLoaderRoute: typeof ApiPublicV1TrapCatchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -288,6 +328,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ReportRoute: ReportRoute,
   TermsRoute: TermsRoute,
+  ApiPublicV1ReportsRoute: ApiPublicV1ReportsRoute,
+  ApiPublicV1TrapCatchesRoute: ApiPublicV1TrapCatchesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
