@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { LegalPage, LegalSection, Mail } from "@/components/LegalPage";
 
 export const Route = createFileRoute("/privacy")({
@@ -48,7 +48,7 @@ function Privacy() {
         <p>Reports are kept while the project is active, as a long-term record of the hornet situation. Spam or wrong reports are hidden or removed by moderators.</p>
       </LegalSection>
       <LegalSection title="Your rights">
-        <p>You may ask for access to, correction or erasure of information you submitted, or object to its use. Email <Mail /> with the date and location of the report. You can also complain to Malta's Information and Data Protection Commissioner (idpc.org.mt).</p>
+        <p>You may ask for access to, correction or erasure of information you submitted, or object to its use. Use our <Link to="/data-request" className="font-semibold underline">data request page</Link> for step-by-step instructions and a ready-made email, or email <Mail /> with the date and location of the report. We reply within one month. You can also complain to Malta's Information and Data Protection Commissioner (idpc.org.mt).</p>
       </LegalSection>
     </LegalPage>
   );
