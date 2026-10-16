@@ -2,7 +2,7 @@
 
 **A public, community-driven map for tracking the oriental hornet (*Vespa orientalis*) across Malta and Gozo — and for measuring whether the interventions against it actually work.**
 
-🔗 **Live app:** [hornet-watch-malta.lovable.app](https://hornet-watch-malta.lovable.app)
+🔗 **Live app:** [hornet-watch-malta.lovable.app](https://hornetwatchmalta.live)
 
 ---
 
@@ -70,7 +70,7 @@ Read-only JSON, no key needed, CORS open, cached for 60 seconds. Only reports th
 | `GET /api/public/v1/reports` | `type` (sighting, nest, hive_damage, intervention), `since`, `until` (YYYY-MM-DD), `locality`, `limit` (max 5000) |
 | `GET /api/public/v1/trap-catches` | `since`, `until`, `limit` |
 
-Example: `https://hornet-watch-malta.lovable.app/api/public/v1/reports?type=nest&since=2026-09-01`
+Example: `https://hornetwatchmalta.live/api/public/v1/reports?type=nest&since=2026-09-01`
 
 Response: `{ "count": 2, "data": [ ... ] }`
 

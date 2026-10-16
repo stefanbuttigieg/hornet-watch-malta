@@ -15,4 +15,4 @@ Allow: /
 
 Disallow: /moderate
 
-Sitemap: https://hornet-watch-malta.lovable.app/sitemap.xml
+Sitemap: https://hornetwatchmalta.live/sitemap.xml

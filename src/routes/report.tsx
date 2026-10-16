@@ -13,9 +13,9 @@ import {
 
 export const Route = createFileRoute("/report")({
   head: () => ({
-    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/report" }],
+    links: [{ rel: "canonical", href: "https://hornetwatchmalta.live/report" }],
     meta: [
-      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/report" },
+      { property: "og:url", content: "https://hornetwatchmalta.live/report" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { title: "Report hornet activity — Hornet Watch Malta" },

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SiteHeader } from "@/components/SiteHeader";
 import { fmtNewsDate, newsQuery } from "@/lib/news-query";
 
-const URL_ = "https://hornet-watch-malta.lovable.app/news";
+const URL_ = "https://hornetwatchmalta.live/news";
 
 export const Route = createFileRoute("/news")({
   head: () => ({

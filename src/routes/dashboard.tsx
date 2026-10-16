@@ -10,9 +10,9 @@ import { catchesQuery, reportsQuery, reportsToCsv, INTERVENTION_LABEL, type Repo
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
-    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/dashboard" }],
+    links: [{ rel: "canonical", href: "https://hornetwatchmalta.live/dashboard" }],
     meta: [
-      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/dashboard" },
+      { property: "og:url", content: "https://hornetwatchmalta.live/dashboard" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { title: "Intervention impact — Hornet Watch Malta" },

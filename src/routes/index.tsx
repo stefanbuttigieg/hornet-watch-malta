@@ -8,9 +8,9 @@ import { newsQuery } from "@/lib/news-query";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app" }],
+    links: [{ rel: "canonical", href: "https://hornetwatchmalta.live" }],
     meta: [
-      { property: "og:url", content: "https://hornet-watch-malta.lovable.app" },
+      { property: "og:url", content: "https://hornetwatchmalta.live" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { title: "Hornet Watch Malta — Oriental hornet live map" },

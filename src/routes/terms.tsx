@@ -3,9 +3,9 @@ import { LegalPage, LegalSection, Mail } from "@/components/LegalPage";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
-    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/terms" }],
+    links: [{ rel: "canonical", href: "https://hornetwatchmalta.live/terms" }],
     meta: [
-      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/terms" },
+      { property: "og:url", content: "https://hornetwatchmalta.live/terms" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { title: "Terms and Conditions — Hornet Watch Malta" },
