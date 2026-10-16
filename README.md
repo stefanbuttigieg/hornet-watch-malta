@@ -111,6 +111,11 @@ The app expects a backend with the `reports` and `trap_catches` tables. Client s
 - Photos are stored privately and shown through short-lived links.
 - **Never try to destroy a nest yourself.** Contact a licensed pest controller or your local council. In an emergency, call **112**.
 
+## Reporting issues & feedback
+
+- **GitHub Issues:** open a [new issue](../../issues/new) with what happened, the page, your device/browser, and a screenshot if possible. Wrong locality or map problems are welcome too.
+- **Email:** [info@stefanbuttigieg.com](mailto:info@stefanbuttigieg.com) — no GitHub account needed.
+
 ## Contributing
 
 Contributions are welcome — especially from beekeepers, entomologists and anyone working on hornet control in Malta.

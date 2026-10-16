@@ -1,5 +1,6 @@
 // Browser-only: imports Leaflet. Load via React.lazy behind <ClientOnly>.
 import "leaflet/dist/leaflet.css";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, Circle, useMapEvents, Marker } from "react-leaflet";
 import L from "leaflet";
 import type { Report } from "@/lib/reports";
@@ -94,6 +95,7 @@ function ReportPopup({ r }: { r: Report }) {
       {r.intervention_type && <div>{INTERVENTION_LABEL[r.intervention_type] ?? r.intervention_type} (from {r.observed_on})</div>}
       {r.notes && <div className="italic">“{r.notes}”</div>}
       {r.is_demo && <div className="text-xs text-muted-foreground">Demo data</div>}
+      <ConfirmButton r={r} />
       <div className="flex gap-3 pt-1">
         {r.photo_url && (
           <button className="underline" onClick={() => openPhoto(r.photo_url!).catch(() => toast.error("Photo unavailable"))}>
@@ -110,6 +112,32 @@ function ReportPopup({ r }: { r: Report }) {
           Flag as wrong
         </button>
       </div>
+    </div>
+  );
+}
+
+function ConfirmButton({ r }: { r: Report }) {
+  const key = `confirmed:${r.id}`;
+  const [count, setCount] = useState(r.confirm_count ?? 0);
+  const [done, setDone] = useState(false);
+  useEffect(() => { setDone(localStorage.getItem(key) === "1"); }, [key]);
+  return (
+    <div className="flex items-center gap-2 pt-1">
+      <button
+        disabled={done}
+        className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+        onClick={async () => {
+          const { data, error } = await supabase.rpc("confirm_report", { _id: r.id });
+          if (error) { toast.error("Couldn't confirm"); return; }
+          localStorage.setItem(key, "1");
+          setDone(true);
+          setCount(typeof data === "number" ? data : count + 1);
+          toast.success("Thanks for confirming");
+        }}
+      >
+        {done ? "✓ You confirmed" : "I saw this too"}
+      </button>
+      {count > 0 && <span className="text-xs text-muted-foreground">Confirmed by {count}</span>}
     </div>
   );
 }
