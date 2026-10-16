@@ -4,6 +4,7 @@ const links = [
   { to: "/", label: "Map" },
   { to: "/dashboard", label: "Impact" },
   { to: "/about", label: "Guide" },
+  { to: "/news", label: "News" },
 ] as const;
 
 export function SiteHeader() {
