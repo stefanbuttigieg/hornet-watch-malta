@@ -62,7 +62,8 @@ function About() {
             Sources:{" "}
             <a className="underline" href="https://maltawildplants.com/!faunafungi/maltawildlife.php?species=Vespa+orientalis" target="_blank" rel="noopener noreferrer">Wild Plants of Malta and Gozo</a>,{" "}
             <a className="underline" href="https://era.org.mt/wp-content/uploads/2023/05/BioSnippet_60-Oriental_Hornet.pdf" target="_blank" rel="noopener noreferrer">Environment and Resources Authority (ERA)</a>,{" "}
-            <a className="underline" href="https://www.um.edu.mt/library/oar/handle/123456789/96311" target="_blank" rel="noopener noreferrer">Albanozzo (2021), University of Malta</a>.
+            <a className="underline" href="https://www.um.edu.mt/library/oar/handle/123456789/96311" target="_blank" rel="noopener noreferrer">Albanozzo (2021), University of Malta</a>.{" "}
+            See all <Link to="/credits" className="underline">Credits & Sources</Link>.
           </p>
         </section>
         <Section title="How to recognise it">
