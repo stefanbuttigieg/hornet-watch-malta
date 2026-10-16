@@ -10,7 +10,11 @@ import { catchesQuery, reportsQuery, reportsToCsv, INTERVENTION_LABEL, type Repo
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/dashboard" }],
     meta: [
+      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/dashboard" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Intervention impact — Hornet Watch Malta" },
       { name: "description", content: "See whether hornet traps, nest removals and other interventions in Malta are reducing sightings and hive losses." },
       { property: "og:title", content: "Intervention impact — Hornet Watch Malta" },

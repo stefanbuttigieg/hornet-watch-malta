@@ -8,7 +8,12 @@ import { TYPE_LABEL } from "@/lib/reports";
 
 export const Route = createFileRoute("/moderate")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/moderate" }],
     meta: [
+      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/moderate" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex, nofollow" },
       { title: "Moderation — Hornet Watch Malta" },
       { name: "description", content: "Moderator tools for reviewing flagged hornet reports." },
       { name: "robots", content: "noindex" },

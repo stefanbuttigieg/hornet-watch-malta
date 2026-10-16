@@ -7,7 +7,11 @@ import { reportsQuery, TYPE_LABEL, type ReportType } from "@/lib/reports";
 
 export const Route = createFileRoute("/")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app" }],
     meta: [
+      { property: "og:url", content: "https://hornet-watch-malta.lovable.app" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Hornet Watch Malta — Oriental hornet live map" },
       { name: "description", content: "Report and track oriental hornet sightings, nests, hive losses and interventions across Malta and Gozo." },
       { property: "og:title", content: "Hornet Watch Malta — Oriental hornet live map" },

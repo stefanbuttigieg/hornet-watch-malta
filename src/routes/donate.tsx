@@ -5,7 +5,9 @@ const COFFEE_URL = "https://buymeacoffee.com/stefanbuttigieg";
 
 export const Route = createFileRoute("/donate")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/donate" }],
     meta: [
+      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/donate" },
       { title: "Support Hornet Watch Malta — Donate" },
       { name: "description", content: "Help keep Hornet Watch Malta free by buying Stefan Buttigieg a coffee." },
       { property: "og:title", content: "Support Hornet Watch Malta" },

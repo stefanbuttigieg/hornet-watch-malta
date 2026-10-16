@@ -4,7 +4,9 @@ import { LegalPage, LegalSection, Mail, CONTACT_EMAIL } from "@/components/Legal
 
 export const Route = createFileRoute("/data-request")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/data-request" }],
     meta: [
+      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/data-request" },
       { title: "Request access or deletion of your data — Hornet Watch Malta" },
       { name: "description", content: "How to ask Hornet Watch Malta for a copy of, a correction to, or deletion of a report you submitted." },
       { property: "og:title", content: "Data requests — Hornet Watch Malta" },

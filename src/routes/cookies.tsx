@@ -3,7 +3,11 @@ import { LegalPage, LegalSection, Mail } from "@/components/LegalPage";
 
 export const Route = createFileRoute("/cookies")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/cookies" }],
     meta: [
+      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/cookies" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Cookies Policy — Hornet Watch Malta" },
       { name: "description", content: "Hornet Watch Malta uses no tracking or advertising cookies. Learn what is stored on your device." },
       { property: "og:title", content: "Cookies Policy — Hornet Watch Malta" },
