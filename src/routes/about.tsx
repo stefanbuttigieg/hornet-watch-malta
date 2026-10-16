@@ -30,7 +30,11 @@ const PHOTOS = [
 
 export const Route = createFileRoute("/about")({
   head: () => ({
+    links: [{ rel: "canonical", href: "https://hornet-watch-malta.lovable.app/about" }],
     meta: [
+      { property: "og:url", content: "https://hornet-watch-malta.lovable.app/about" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { title: "Oriental hornet guide — Hornet Watch Malta" },
       { name: "description", content: "How to recognise the oriental hornet (Vespa orientalis), stay safe, and what to do if you find a nest in Malta." },
       { property: "og:title", content: "Oriental hornet guide — Hornet Watch Malta" },

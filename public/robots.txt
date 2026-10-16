@@ -12,3 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Disallow: /moderate
+
+Sitemap: https://hornet-watch-malta.lovable.app/sitemap.xml
