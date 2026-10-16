@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
 import { fmtNewsDate, newsQuery } from "@/lib/news-query";
 
 const URL_ = "https://hornet-watch-malta.lovable.app/news";
@@ -49,7 +48,6 @@ function NewsPage() {
           ))}
         </ul>
       </main>
-      <SiteFooter />
     </div>
   );
 }
