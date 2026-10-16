@@ -8,8 +8,8 @@ describe("parseNewsRss", () => {
   it("keeps hornet stories and strips the source suffix", () => {
     const r = parseNewsRss(`<rss>${item("Oriental hornet surge hits beekeepers", "Mon, 05 Oct 2026 10:00:00 GMT")}</rss>`);
     expect(r).toHaveLength(1);
-    expect(r[0].title).toBe("Oriental hornet surge hits beekeepers");
-    expect(r[0].source).toBe("Times of Malta");
+    expect(r[0]!.title).toBe("Oriental hornet surge hits beekeepers");
+    expect(r[0]!.source).toBe("Times of Malta");
   });
   it("keeps Maltese keyword żunżan", () => {
     expect(parseNewsRss(item("Il-żunżan jeqred il-ġlieli", "Mon, 05 Oct 2026 10:00:00 GMT"))).toHaveLength(1);
