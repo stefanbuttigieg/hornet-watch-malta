@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { LazyMap } from "@/components/LazyMap";
 import { reportsQuery, TYPE_LABEL, type ReportType } from "@/lib/reports";
+import { newsQuery } from "@/lib/news-query";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -75,6 +76,7 @@ function MapPage() {
           </label>
         </div>
       </div>
+      <NewsStrip />
       <div className="relative flex-1">
         <LazyMap reports={filtered} heat={heat} />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[500] p-3">
@@ -100,6 +102,25 @@ function Stat({ n, l }: { n: number; l: string }) {
     <div className="text-center">
       <div className="font-display text-2xl font-bold text-primary">{n}</div>
       <div className="text-xs opacity-80">{l}</div>
+    </div>
+  );
+}
+
+function NewsStrip() {
+  const { data = [] } = useQuery(newsQuery);
+  if (!data.length) return null;
+  return (
+    <div className="border-b bg-secondary text-sm">
+      <div className="mx-auto flex max-w-6xl items-center gap-3 overflow-x-auto px-4 py-2">
+        <span className="shrink-0 font-semibold">📰 Latest</span>
+        {data.slice(0, 3).map((a) => (
+          <a key={a.id} href={a.url} target="_blank" rel="noopener noreferrer"
+            className="max-w-[18rem] shrink-0 truncate hover:underline" title={a.title}>
+            {a.title}
+          </a>
+        ))}
+        <Link to="/news" className="ml-auto shrink-0 font-semibold text-primary hover:underline">All news →</Link>
+      </div>
     </div>
   );
 }

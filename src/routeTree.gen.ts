@@ -18,9 +18,11 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DataRequestRouteImport } from './routes/data-request'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ModerateRouteImport } from './routes/moderate'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ApiPublicNewsRefreshRouteImport } from './routes/api/public/news-refresh'
 import { Route as ApiPublicV1ReportsRouteImport } from './routes/api/public/v1/reports'
 import { Route as ApiPublicV1TrapCatchesRouteImport } from './routes/api/public/v1/trap-catches'
 
@@ -69,6 +71,11 @@ const ModerateRoute = ModerateRouteImport.update({
   path: '/moderate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -82,6 +89,11 @@ const ReportRoute = ReportRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicNewsRefreshRoute = ApiPublicNewsRefreshRouteImport.update({
+  id: '/api/public/news-refresh',
+  path: '/api/public/news-refresh',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicV1ReportsRoute = ApiPublicV1ReportsRouteImport.update({
@@ -105,9 +117,11 @@ export interface FileRoutesByFullPath {
   '/data-request': typeof DataRequestRoute
   '/donate': typeof DonateRoute
   '/moderate': typeof ModerateRoute
+  '/news': typeof NewsRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
+  '/api/public/news-refresh': typeof ApiPublicNewsRefreshRoute
   '/api/public/v1/reports': typeof ApiPublicV1ReportsRoute
   '/api/public/v1/trap-catches': typeof ApiPublicV1TrapCatchesRoute
 }
@@ -121,9 +135,11 @@ export interface FileRoutesByTo {
   '/data-request': typeof DataRequestRoute
   '/donate': typeof DonateRoute
   '/moderate': typeof ModerateRoute
+  '/news': typeof NewsRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
+  '/api/public/news-refresh': typeof ApiPublicNewsRefreshRoute
   '/api/public/v1/reports': typeof ApiPublicV1ReportsRoute
   '/api/public/v1/trap-catches': typeof ApiPublicV1TrapCatchesRoute
 }
@@ -138,9 +154,11 @@ export interface FileRoutesById {
   '/data-request': typeof DataRequestRoute
   '/donate': typeof DonateRoute
   '/moderate': typeof ModerateRoute
+  '/news': typeof NewsRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
+  '/api/public/news-refresh': typeof ApiPublicNewsRefreshRoute
   '/api/public/v1/reports': typeof ApiPublicV1ReportsRoute
   '/api/public/v1/trap-catches': typeof ApiPublicV1TrapCatchesRoute
 }
@@ -156,9 +174,11 @@ export interface FileRouteTypes {
     | '/data-request'
     | '/donate'
     | '/moderate'
+    | '/news'
     | '/privacy'
     | '/report'
     | '/terms'
+    | '/api/public/news-refresh'
     | '/api/public/v1/reports'
     | '/api/public/v1/trap-catches'
   fileRoutesByTo: FileRoutesByTo
@@ -172,9 +192,11 @@ export interface FileRouteTypes {
     | '/data-request'
     | '/donate'
     | '/moderate'
+    | '/news'
     | '/privacy'
     | '/report'
     | '/terms'
+    | '/api/public/news-refresh'
     | '/api/public/v1/reports'
     | '/api/public/v1/trap-catches'
   id:
@@ -188,9 +210,11 @@ export interface FileRouteTypes {
     | '/data-request'
     | '/donate'
     | '/moderate'
+    | '/news'
     | '/privacy'
     | '/report'
     | '/terms'
+    | '/api/public/news-refresh'
     | '/api/public/v1/reports'
     | '/api/public/v1/trap-catches'
   fileRoutesById: FileRoutesById
@@ -205,9 +229,11 @@ export interface RootRouteChildren {
   DataRequestRoute: typeof DataRequestRoute
   DonateRoute: typeof DonateRoute
   ModerateRoute: typeof ModerateRoute
+  NewsRoute: typeof NewsRoute
   PrivacyRoute: typeof PrivacyRoute
   ReportRoute: typeof ReportRoute
   TermsRoute: typeof TermsRoute
+  ApiPublicNewsRefreshRoute: typeof ApiPublicNewsRefreshRoute
   ApiPublicV1ReportsRoute: typeof ApiPublicV1ReportsRoute
   ApiPublicV1TrapCatchesRoute: typeof ApiPublicV1TrapCatchesRoute
 }
@@ -277,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModerateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -296,6 +329,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/news-refresh': {
+      id: '/api/public/news-refresh'
+      path: '/api/public/news-refresh'
+      fullPath: '/api/public/news-refresh'
+      preLoaderRoute: typeof ApiPublicNewsRefreshRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/v1/reports': {
@@ -325,9 +365,11 @@ const rootRouteChildren: RootRouteChildren = {
   DataRequestRoute: DataRequestRoute,
   DonateRoute: DonateRoute,
   ModerateRoute: ModerateRoute,
+  NewsRoute: NewsRoute,
   PrivacyRoute: PrivacyRoute,
   ReportRoute: ReportRoute,
   TermsRoute: TermsRoute,
+  ApiPublicNewsRefreshRoute: ApiPublicNewsRefreshRoute,
   ApiPublicV1ReportsRoute: ApiPublicV1ReportsRoute,
   ApiPublicV1TrapCatchesRoute: ApiPublicV1TrapCatchesRoute,
 }
