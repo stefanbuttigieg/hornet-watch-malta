@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { isLikelyBot } from "@/lib/bot-check";
+import { isOnLand } from "@/lib/land-check";
 import { toast } from "sonner";
 import { SiteHeader } from "@/components/SiteHeader";
 import { LazyMap } from "@/components/LazyMap";
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/report")({
   component: ReportPage,
 });
 
-type Field = "hornet_count" | "behaviour" | "nest_status" | "hives_total" | "hives_lost" | "intervention_type" | "notes";
+type Field = "hornet_count" | "behaviour" | "nest_status" | "hives_total" | "hives_lost" | "intervention_type" | "notes" | "email";
 const inputCls = "w-full rounded-lg border bg-card px-3 py-3 text-base";
 const MALTA = { minLat: 35.78, maxLat: 36.1, minLng: 14.15, maxLng: 14.6 };
 
@@ -46,9 +47,13 @@ function ReportPage() {
   const set = (k: Field) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setF({ ...f, [k]: e.target.value });
 
-  const pick = (lat: number, lng: number) => {
+  const pick = async (lat: number, lng: number) => {
     if (lat < MALTA.minLat || lat > MALTA.maxLat || lng < MALTA.minLng || lng > MALTA.maxLng) {
       toast.error("Please pick a location in Malta or Gozo");
+      return undefined;
+    }
+    if ((await isOnLand(lat, lng)) === false) {
+      toast.error("That spot is in the sea — please tap on land");
       return undefined;
     }
     setPos({ lat, lng });
@@ -94,8 +99,9 @@ function ReportPage() {
         if (error) throw error;
         photo_url = path;
       }
+      const id = crypto.randomUUID();
       const { error } = await supabase.from("reports").insert({
-        type, lat: pos.lat, lng: pos.lng, locality: locality || null, observed_on: date,
+        id, type, lat: pos.lat, lng: pos.lng, locality: locality || null, observed_on: date,
         hornet_count: type === "sighting" ? (num("hornet_count") ?? 1) : null,
         behaviour: type === "sighting" ? f.behaviour || null : null,
         nest_status: type === "nest" ? f.nest_status || "active" : null,
@@ -106,6 +112,8 @@ function ReportPage() {
         photo_url,
       });
       if (error) throw new Error(error.message.replace(/^RATE_LIMIT:\s*/, ""));
+      const email = f.email?.trim();
+      if (email) await supabase.from("report_contacts").insert({ report_id: id, email: email.slice(0, 254) });
       await qc.invalidateQueries({ queryKey: ["reports"] });
       toast.success("Thank you — report received", { description: "Most reports appear on the map straight away. Unusual ones (very large numbers, or many from one spot) show after a quick check." });
       nav({ to: "/" });
@@ -205,6 +213,10 @@ function ReportPage() {
         </label>
         <label className="block space-y-1"><span className="text-sm font-medium">Notes</span>
           <textarea maxLength={1000} rows={3} value={f.notes ?? ""} onChange={set("notes")} className={inputCls} />
+        </label>
+        <label className="block space-y-1"><span className="text-sm font-medium">Email (optional)</span>
+          <input type="email" maxLength={254} autoComplete="email" value={f.email ?? ""} onChange={set("email")} className={inputCls} />
+          <span className="block text-xs text-muted-foreground">Only the moderator sees this, in case we need to ask you about the report. Never shown publicly. <a href="/privacy" className="underline">Privacy</a></span>
         </label>
 
         <button disabled={busy} className="w-full rounded-xl bg-primary py-4 text-lg font-bold text-primary-foreground disabled:opacity-60">
