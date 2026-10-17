@@ -19,7 +19,12 @@ export const listForModeration = createServerFn({ method: "POST" })
       .order("created_at", { ascending: false })
       .limit(200);
     if (error) throw new Error(error.message);
-    return rows;
+    const ids = (rows ?? []).map((r) => r.id);
+    const { data: contacts } = ids.length
+      ? await supabaseAdmin.from("report_contacts").select("report_id,email").in("report_id", ids)
+      : { data: [] as { report_id: string; email: string }[] };
+    const byId = new Map((contacts ?? []).map((c) => [c.report_id, c.email]));
+    return (rows ?? []).map((r) => ({ ...r, contact_email: byId.get(r.id) ?? null }));
   });
 
 export const setReportHidden = createServerFn({ method: "POST" })

@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { isLikelyBot } from "@/lib/bot-check";
+import { isOnLand } from "@/lib/land-check";
 import { toast } from "sonner";
 import { SiteHeader } from "@/components/SiteHeader";
 import { LazyMap } from "@/components/LazyMap";
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/report")({
   component: ReportPage,
 });
 
-type Field = "hornet_count" | "behaviour" | "nest_status" | "hives_total" | "hives_lost" | "intervention_type" | "notes";
+type Field = "hornet_count" | "behaviour" | "nest_status" | "hives_total" | "hives_lost" | "intervention_type" | "notes" | "email";
 const inputCls = "w-full rounded-lg border bg-card px-3 py-3 text-base";
 const MALTA = { minLat: 35.78, maxLat: 36.1, minLng: 14.15, maxLng: 14.6 };
 

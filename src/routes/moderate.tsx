@@ -70,6 +70,11 @@ function Moderate() {
                       </div>
                     )}
                     {r.pending_review && <div className="font-medium text-primary">Held for review: {r.review_reason}</div>}
+                    {r.contact_email && (
+                      <a className="underline" href={`mailto:${r.contact_email}?subject=${encodeURIComponent(`Your Hornet Watch Malta report (${r.observed_on})`)}`}>
+                        ✉ Ask reporter: {r.contact_email}
+                      </a>
+                    )}
                   </div>
                   {r.flag_count > 0 && <span className="rounded-full bg-destructive px-2 py-0.5 text-xs text-destructive-foreground">{r.flag_count} flags</span>}
                   {r.pending_review && (

@@ -27,7 +27,8 @@ function Privacy() {
         <ul className="list-disc space-y-1 pl-5">
           <li>Report details you choose to submit: report type, map location, date, counts, behaviour, nest status, hive numbers, intervention type, notes and an optional photo.</li>
           <li>Anonymous counters when you confirm or flag a report.</li>
-          <li>We do <strong>not</strong> ask for your name, email or phone number, and there are no user accounts.</li>
+          <li>An <strong>optional</strong> email address, if you choose to give one with a report. It is seen only by the moderator, used only to ask you about that report, never published or shared, and deleted together with the report. There are no user accounts, and we don't ask for your name or phone number.</li>
+          <li>When you pick a spot on the map, its coordinates are sent to OpenStreetMap's Nominatim service to check the spot is on land.</li>
           <li>Like any website, our hosting provider processes technical data (such as IP address and browser type) to deliver the site and keep it secure.</li>
           <li>To stop abuse, each report you send records a scrambled, one-way code made from your IP address (not the address itself, and never shown with your report). It is used only to limit everyone to 5 reports an hour and is deleted after 2 days.</li>
         </ul>
