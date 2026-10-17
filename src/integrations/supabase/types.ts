@@ -56,6 +56,32 @@ export type Database = {
         }
         Relationships: []
       }
+      report_contacts: {
+        Row: {
+          created_at: string
+          email: string
+          report_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          report_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          report_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_contacts_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: true
+            referencedRelation: "reports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       report_submissions: {
         Row: {
           created_at: string

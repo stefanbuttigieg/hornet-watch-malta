@@ -50,6 +50,13 @@
       "when": 1792159894923,
       "tag": "0006_fix_hold_reasons",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792270326853,
+      "tag": "0007_report_contacts",
+      "breakpoints": true
     }
   ]
 }
