@@ -7,9 +7,11 @@ export async function isOnLand(lat: number, lng: number): Promise<boolean | null
       { headers: { Accept: "application/json" } },
     );
     if (!res.ok) return null;
-    const j = (await res.json()) as { error?: string; address?: { country_code?: string } };
+    const j = (await res.json()) as { error?: string; addresstype?: string; address?: Record<string, string> };
     if (j.error) return false;
-    return j.address?.country_code === "mt";
+    // Points in Maltese waters only resolve to the country itself (no town, road, etc.).
+    if (j.addresstype === "country" || j.address?.country_code !== "mt") return false;
+    return Object.keys(j.address ?? {}).some((k) => !["country", "country_code"].includes(k));
   } catch {
     return null;
   }
