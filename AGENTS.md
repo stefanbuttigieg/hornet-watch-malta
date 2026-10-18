@@ -12,3 +12,4 @@
 - Maps use Leaflet + OpenStreetMap tiles, loaded client-only via src/components/LazyMap.tsx (user declined Google Maps).
 - Intervention effectiveness maths lives in src/lib/effectiveness.ts as pure functions with unit tests; UI only renders results.
 - Reports are public (no login): anon insert/select via RLS; moderation uses a passcode secret checked in server functions.
+- Browser end-to-end tests live in tests/e2e and use real report storage and moderation; only external geocoding is stubbed for determinism, and uniquely identified test reports are deleted in teardown.
