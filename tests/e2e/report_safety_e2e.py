@@ -217,7 +217,11 @@ class ReportSafetyE2E(unittest.TestCase):
         expect(page.locator(".leaflet-interactive").first).to_be_visible()
         found = False
         for pin in page.locator("path.leaflet-interactive").all():
+            close = page.locator(".leaflet-popup-close-button")
+            if close.count():
+                close.last.click()
             pin.click(force=True)
+            page.wait_for_timeout(250)
             popup = page.locator(".leaflet-popup-content").filter(has_text=notes)
             if popup.count():
                 self.assert_email_absent(popup.inner_text())
