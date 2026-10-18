@@ -8,7 +8,9 @@ import shutil
 import subprocess
 import time
 import unittest
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlencode
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError
 import uuid
 
 from playwright.sync_api import sync_playwright, expect
@@ -33,7 +35,7 @@ def database(sql):
 class ReportSafetyE2E(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        for name in ("MODERATOR_PASSCODE", "PGHOST", "PGDATABASE", "PGUSER"):
+        for name in ("MODERATOR_PASSCODE", "PGHOST", "PGDATABASE", "PGUSER", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"):
             if not os.environ.get(name):
                 raise RuntimeError(f"Required test environment variable is missing: {name}")
         if not shutil.which("psql"):
@@ -65,16 +67,24 @@ class ReportSafetyE2E(unittest.TestCase):
             for report_id in self.ids:
                 # UUID validation makes interpolation safe; timestamp matches only this insert.
                 report_id = str(uuid.UUID(report_id))
-                database(f"""
-                    BEGIN;
-                    DELETE FROM public.report_submissions WHERE created_at IN
-                      (SELECT created_at FROM public.reports WHERE id = '{report_id}');
-                    DELETE FROM public.reports WHERE id = '{report_id}';
-                    COMMIT;
-                """)
+                timestamps = database(f"SELECT created_at FROM public.reports WHERE id = '{report_id}'")
+                if timestamps:
+                    self.admin_delete("report_submissions", {"created_at": f"eq.{timestamps}"})
+                self.admin_delete("reports", {"id": f"eq.{report_id}"})
                 self.assertEqual(database(f"SELECT count(*) FROM public.report_contacts WHERE report_id = '{report_id}'"), "0")
         finally:
             self.context.close()
+
+    def admin_delete(self, table, filters):
+        request = Request(
+            os.environ["SUPABASE_URL"].rstrip("/") + "/rest/v1/" + table + "?" + urlencode(filters),
+            method="DELETE", headers={"apikey": os.environ["SUPABASE_SERVICE_ROLE_KEY"]},
+        )
+        try:
+            with urlopen(request) as response:
+                self.assertEqual(response.status, 204)
+        except HTTPError:
+            raise AssertionError("Test-only cleanup failed (details suppressed for privacy)") from None
 
     def track_report(self, request):
         if request.method == "POST" and urlparse(request.url).path == "/rest/v1/reports":
@@ -208,8 +218,8 @@ class ReportSafetyE2E(unittest.TestCase):
         found = False
         for pin in page.locator("path.leaflet-interactive").all():
             pin.click(force=True)
-            popup = page.locator(".leaflet-popup-content")
-            if popup.count() and notes in popup.inner_text():
+            popup = page.locator(".leaflet-popup-content").filter(has_text=notes)
+            if popup.count():
                 self.assert_email_absent(popup.inner_text())
                 self.assert_email_absent(page.content())
                 popup.screenshot(path=str(SCREENSHOTS / "public-report-no-email.png"))
