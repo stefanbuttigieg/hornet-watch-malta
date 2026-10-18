@@ -172,9 +172,16 @@ class ReportSafetyE2E(unittest.TestCase):
     def assert_email_absent(self, value):
         # Do not include actual page/response contents in failure output.
         self.assertTrue(self.email not in value, "Reporter email leaked into a public surface")
-        if isinstance(value, str):
-            self.assertFalse(any(key in value for key in ('"contact_email"', '"email"')),
-                             "Public data unexpectedly contains email fields")
+
+    def assert_no_email_fields(self, value):
+        if isinstance(value, dict):
+            self.assertTrue(not ({"email", "contact_email"} & value.keys()),
+                            "Public data unexpectedly contains email fields")
+            for item in value.values():
+                self.assert_no_email_fields(item)
+        elif isinstance(value, list):
+            for item in value:
+                self.assert_no_email_fields(item)
 
     def test_optional_email_is_visible_only_in_moderation(self):
         with_email, notes = self.submit_report("with-email", self.email)
@@ -236,6 +243,7 @@ class ReportSafetyE2E(unittest.TestCase):
         api_body = response.text()
         self.assertIn(with_email, api_body, "Privacy check must include the actual saved report")
         self.assert_email_absent(api_body)
+        self.assert_no_email_fields(response.json())
 
         # Direct anonymous reads must deny access or return no rows under RLS.
         report_response = next((r for r in public_payloads if "/rest/v1/reports?" in r.url), None)
@@ -252,6 +260,7 @@ class ReportSafetyE2E(unittest.TestCase):
         for response in public_payloads:
             if response.ok:
                 self.assert_email_absent(response.text())
+                self.assert_no_email_fields(response.json())
 
         page.goto(f"{BASE_URL}/dashboard", wait_until="networkidle")
         with page.expect_download() as downloaded:
