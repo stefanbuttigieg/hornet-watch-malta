@@ -237,7 +237,7 @@ class ReportSafetyE2E(unittest.TestCase):
         self.assertIn(with_email, api_body, "Privacy check must include the actual saved report")
         self.assert_email_absent(api_body)
 
-        # Direct anonymous contact reads must fail, not merely be hidden by the UI.
+        # Direct anonymous reads must deny access or return no rows under RLS.
         report_response = next((r for r in public_payloads if "/rest/v1/reports?" in r.url), None)
         self.assertIsNotNone(report_response, "Public map must read real report data")
         headers = report_response.request.all_headers()
@@ -245,7 +245,10 @@ class ReportSafetyE2E(unittest.TestCase):
         denied = public.request.get(contact_url, headers={
             k: v for k, v in headers.items() if k in ("apikey", "authorization")
         })
-        self.assertIn(denied.status, (401, 403), "Anonymous readers must not have contact-table access")
+        if denied.status == 200:
+            self.assertTrue(denied.json() == [], "Anonymous contact reads must expose no rows")
+        else:
+            self.assertIn(denied.status, (401, 403), "Anonymous contact reads must be denied")
         for response in public_payloads:
             if response.ok:
                 self.assert_email_absent(response.text())
