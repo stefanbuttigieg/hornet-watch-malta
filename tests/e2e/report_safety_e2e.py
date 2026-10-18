@@ -220,7 +220,7 @@ class ReportSafetyE2E(unittest.TestCase):
             close = page.locator(".leaflet-popup-close-button")
             if close.count():
                 close.last.click()
-            pin.click(force=True)
+            pin.dispatch_event("click")
             page.wait_for_timeout(250)
             popup = page.locator(".leaflet-popup-content").filter(has_text=notes)
             if popup.count():
