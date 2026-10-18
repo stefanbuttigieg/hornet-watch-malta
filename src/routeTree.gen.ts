@@ -20,6 +20,7 @@ import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ModerateRouteImport } from './routes/moderate'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ReleasesRouteImport } from './routes/releases'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiPublicNewsRefreshRouteImport } from './routes/api/public/news-refresh'
@@ -81,6 +82,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReleasesRoute = ReleasesRouteImport.update({
+  id: '/releases',
+  path: '/releases',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportRoute = ReportRouteImport.update({
   id: '/report',
   path: '/report',
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/moderate': typeof ModerateRoute
   '/news': typeof NewsRoute
   '/privacy': typeof PrivacyRoute
+  '/releases': typeof ReleasesRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
   '/api/public/news-refresh': typeof ApiPublicNewsRefreshRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/moderate': typeof ModerateRoute
   '/news': typeof NewsRoute
   '/privacy': typeof PrivacyRoute
+  '/releases': typeof ReleasesRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
   '/api/public/news-refresh': typeof ApiPublicNewsRefreshRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/moderate': typeof ModerateRoute
   '/news': typeof NewsRoute
   '/privacy': typeof PrivacyRoute
+  '/releases': typeof ReleasesRoute
   '/report': typeof ReportRoute
   '/terms': typeof TermsRoute
   '/api/public/news-refresh': typeof ApiPublicNewsRefreshRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/moderate'
     | '/news'
     | '/privacy'
+    | '/releases'
     | '/report'
     | '/terms'
     | '/api/public/news-refresh'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/moderate'
     | '/news'
     | '/privacy'
+    | '/releases'
     | '/report'
     | '/terms'
     | '/api/public/news-refresh'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/moderate'
     | '/news'
     | '/privacy'
+    | '/releases'
     | '/report'
     | '/terms'
     | '/api/public/news-refresh'
@@ -231,6 +243,7 @@ export interface RootRouteChildren {
   ModerateRoute: typeof ModerateRoute
   NewsRoute: typeof NewsRoute
   PrivacyRoute: typeof PrivacyRoute
+  ReleasesRoute: typeof ReleasesRoute
   ReportRoute: typeof ReportRoute
   TermsRoute: typeof TermsRoute
   ApiPublicNewsRefreshRoute: typeof ApiPublicNewsRefreshRoute
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/releases': {
+      id: '/releases'
+      path: '/releases'
+      fullPath: '/releases'
+      preLoaderRoute: typeof ReleasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/report': {
       id: '/report'
       path: '/report'
@@ -367,6 +387,7 @@ const rootRouteChildren: RootRouteChildren = {
   ModerateRoute: ModerateRoute,
   NewsRoute: NewsRoute,
   PrivacyRoute: PrivacyRoute,
+  ReleasesRoute: ReleasesRoute,
   ReportRoute: ReportRoute,
   TermsRoute: TermsRoute,
   ApiPublicNewsRefreshRoute: ApiPublicNewsRefreshRoute,
