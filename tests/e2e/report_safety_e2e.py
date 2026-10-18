@@ -123,7 +123,7 @@ class ReportSafetyE2E(unittest.TestCase):
                 self.pick(SEA)
                 expect(self.page.get_by_text("That spot is in the sea — please tap on land", exact=True).first).to_be_visible()
                 expect(self.page.locator(".leaflet-marker-icon")).to_have_count(0)
-                self.assertEqual(self.page.get_by_label("Locality", exact=True).input_value(), "")
+                self.assertEqual(self.page.get_by_label("Locality", exact=False).input_value(), "")
                 self.wait_human()
                 self.page.get_by_role("button", name="Submit report", exact=True).click()
                 expect(self.page.get_by_text("Tap the map or use your location first", exact=True).first).to_be_visible()
@@ -138,17 +138,17 @@ class ReportSafetyE2E(unittest.TestCase):
         self.pick(SEA)
         expect(self.page.get_by_text("That spot is in the sea — please tap on land", exact=True).first).to_be_visible()
         self.assertEqual(self.page.locator(".leaflet-marker-icon").get_attribute("style"), pin)
-        self.assertEqual(self.page.get_by_label("Locality", exact=True).input_value(), "Tarxien")
+        self.assertEqual(self.page.get_by_label("Locality", exact=False).input_value(), "Tarxien")
 
     def submit_report(self, suffix, email=None):
         self.open_form()
-        self.pick(LAND)
+        self.pick(LAND if email else (LAND[0], LAND[1] + 0.003))
         expect(self.page.get_by_text("Pinned near Tarxien", exact=True)).to_be_visible()
         notes = f"{self.marker}-{suffix}"
         self.page.get_by_label("Notes", exact=True).fill(notes)
         self.page.get_by_label("How many hornets?", exact=True).fill("1")
         if email:
-            self.page.get_by_label("Email (optional)", exact=True).fill(email)
+            self.page.get_by_label("Email (optional)", exact=False).fill(email)
         self.wait_human()
         with self.page.expect_response(lambda response:
                 urlparse(response.url).path == "/rest/v1/reports" and response.request.method == "POST") as saved:
@@ -161,7 +161,7 @@ class ReportSafetyE2E(unittest.TestCase):
 
     def assert_email_absent(self, value):
         # Do not include actual page/response contents in failure output.
-        self.assertNotIn(self.email, value, "Reporter email leaked into a public surface")
+        self.assertTrue(self.email not in value, "Reporter email leaked into a public surface")
         if isinstance(value, str):
             self.assertFalse(any(key in value for key in ('"contact_email"', '"email"')),
                              "Public data unexpectedly contains email fields")
@@ -238,7 +238,7 @@ class ReportSafetyE2E(unittest.TestCase):
 
         page.goto(f"{BASE_URL}/dashboard", wait_until="networkidle")
         with page.expect_download() as downloaded:
-            page.get_by_role("button", name="Export CSV").click()
+            page.get_by_role("button", name="Download all data (CSV)").click()
         csv = Path(downloaded.value.path()).read_text()
         self.assertIn(with_email, csv, "CSV privacy check must include the saved report")
         self.assert_email_absent(csv)
