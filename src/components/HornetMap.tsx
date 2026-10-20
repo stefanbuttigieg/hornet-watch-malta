@@ -75,8 +75,8 @@ export default function HornetMap({
           }}
         >
           {r.photo_url && (
-            <Tooltip direction="top" offset={[0, -8]} opacity={1}>
-              <PhotoThumb path={r.photo_url} size={120} />
+            <Tooltip permanent direction="top" offset={[0, -8]} opacity={1} className="map-photo-thumbnail">
+              <PhotoThumb path={r.photo_url} size={40} />
             </Tooltip>
           )}
           <Popup>
