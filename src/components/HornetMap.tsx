@@ -1,7 +1,7 @@
 // Browser-only: imports Leaflet. Load via React.lazy behind <ClientOnly>.
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, CircleMarker, Popup, Circle, useMapEvents, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Popup, Circle, useMapEvents, Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import type { Report } from "@/lib/reports";
 import { TYPE_LABEL, INTERVENTION_LABEL, BEHAVIOUR_LABEL, MALTA_CENTER, openPhoto } from "@/lib/reports";
@@ -74,6 +74,11 @@ export default function HornetMap({
             fillOpacity: heat ? 0.18 : 0.9,
           }}
         >
+          {r.photo_url && (
+            <Tooltip direction="top" offset={[0, -8]} opacity={1}>
+              <PhotoThumb path={r.photo_url} size={120} />
+            </Tooltip>
+          )}
           <Popup>
             <ReportPopup r={r} />
           </Popup>
@@ -83,9 +88,32 @@ export default function HornetMap({
   );
 }
 
+const urlCache = new Map<string, Promise<string | null>>();
+function signedUrl(path: string) {
+  let p = urlCache.get(path);
+  if (!p) {
+    p = supabase.storage.from("report-photos").createSignedUrl(path, 3600)
+      .then(({ data }) => data?.signedUrl ?? null, () => null);
+    urlCache.set(path, p);
+  }
+  return p;
+}
+
+function PhotoThumb({ path, size }: { path: string; size: number }) {
+  const [url, setUrl] = useState<string | null>(null);
+  useEffect(() => { let on = true; signedUrl(path).then((u) => on && setUrl(u)); return () => { on = false; }; }, [path]);
+  if (!url) return <div style={{ width: size, height: size * 0.75 }} className="flex items-center justify-center text-xs text-muted-foreground">Loading photo…</div>;
+  return <img src={url} alt="Reported photo" style={{ width: size, height: size * 0.75, objectFit: "cover", borderRadius: 6, display: "block" }} />;
+}
+
 function ReportPopup({ r }: { r: Report }) {
   return (
     <div className="space-y-1 text-sm">
+      {r.photo_url && (
+        <button onClick={() => openPhoto(r.photo_url!).catch(() => toast.error("Photo unavailable"))} aria-label="Open full photo">
+          <PhotoThumb path={r.photo_url} size={200} />
+        </button>
+      )}
       <div className="font-semibold">{TYPE_LABEL[r.type as keyof typeof TYPE_LABEL]}</div>
       <div className="text-muted-foreground">{r.locality ?? "Malta"} · {r.observed_on}</div>
       {r.hornet_count != null && <div>Hornets seen: {r.hornet_count}</div>}
