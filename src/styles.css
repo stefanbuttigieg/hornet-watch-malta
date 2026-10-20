@@ -99,6 +99,8 @@
 .leaflet-container { font-family: var(--font-sans); background: var(--muted); }
 .leaflet-popup-content-wrapper { border-radius: var(--radius); }
 .leaflet-tooltip.map-photo-thumbnail {
+  width: 46px;
+  height: 36px;
   padding: 2px;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -106,4 +108,5 @@
   color: var(--card-foreground);
   box-shadow: none;
 }
+.leaflet-tooltip.map-photo-thumbnail img { width: 40px; max-width: none; height: 30px; }
 .leaflet-tooltip-top.map-photo-thumbnail::before { border-top-color: var(--card); }
