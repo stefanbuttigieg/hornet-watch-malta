@@ -107,6 +107,8 @@
   background: var(--card);
   color: var(--card-foreground);
   box-shadow: none;
+  pointer-events: auto;
+  cursor: pointer;
 }
 .leaflet-tooltip.map-photo-thumbnail img { width: 40px; max-width: none; height: 30px; }
 .leaflet-tooltip-top.map-photo-thumbnail::before { border-top-color: var(--card); }
