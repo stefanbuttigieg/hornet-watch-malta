@@ -1,6 +1,6 @@
 // Browser-only: imports Leaflet. Load via React.lazy behind <ClientOnly>.
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, Circle, useMapEvents, Marker, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import type { Report } from "@/lib/reports";
@@ -62,35 +62,7 @@ export default function HornetMap({
             pathOptions={{ color: COLOR_VAR["intervention"], weight: 1, fillOpacity: 0.04, dashArray: "4 6" }} />
         ) : null,
       )}
-      {reports.map((r) => (
-        <CircleMarker
-          key={r.id}
-          center={[r.lat, r.lng]}
-          radius={radiusFor(r, heat)}
-          pathOptions={{
-            color: heat ? COLOR_VAR[r.type] : "var(--card)",
-            weight: heat ? 0 : 2,
-            fillColor: COLOR_VAR[r.type],
-            fillOpacity: heat ? 0.18 : 0.9,
-          }}
-        >
-          {r.photo_url && (
-            <Tooltip permanent interactive direction="top" offset={[0, -8]} opacity={1} className="map-photo-thumbnail">
-              <button
-                type="button"
-                aria-label="Open full photo"
-                style={{ cursor: "pointer", display: "block", padding: 0, border: 0, background: "none" }}
-                onClick={(e) => { e.stopPropagation(); openPhoto(r.photo_url!).catch(() => toast.error("Photo unavailable")); }}
-              >
-                <PhotoThumb path={r.photo_url} size={40} />
-              </button>
-            </Tooltip>
-          )}
-          <Popup>
-            <ReportPopup r={r} />
-          </Popup>
-        </CircleMarker>
-      ))}
+      {reports.map((r) => <ReportMarker key={r.id} r={r} heat={heat} />)}
     </MapContainer>
   );
 }
@@ -174,5 +146,38 @@ function ConfirmButton({ r }: { r: Report }) {
       </button>
       {count > 0 && <span className="text-xs text-muted-foreground">Confirmed by {count}</span>}
     </div>
+  );
+}
+
+function ReportMarker({ r, heat }: { r: Report; heat: boolean }) {
+  const ref = useRef<L.CircleMarker | null>(null);
+  return (
+    <CircleMarker
+      ref={ref}
+      center={[r.lat, r.lng]}
+      radius={radiusFor(r, heat)}
+      pathOptions={{
+        color: heat ? COLOR_VAR[r.type] : "var(--card)",
+        weight: heat ? 0 : 2,
+        fillColor: COLOR_VAR[r.type],
+        fillOpacity: heat ? 0.18 : 0.9,
+      }}
+    >
+      {r.photo_url && (
+        <Tooltip permanent interactive direction="top" offset={[0, -8]} opacity={1} className="map-photo-thumbnail">
+          <button
+            type="button"
+            aria-label="Show report details"
+            style={{ cursor: "pointer", display: "block", padding: 0, border: 0, background: "none" }}
+            onClick={(e) => { e.stopPropagation(); ref.current?.openPopup(); }}
+          >
+            <PhotoThumb path={r.photo_url} size={40} />
+          </button>
+        </Tooltip>
+      )}
+      <Popup>
+        <ReportPopup r={r} />
+      </Popup>
+    </CircleMarker>
   );
 }
