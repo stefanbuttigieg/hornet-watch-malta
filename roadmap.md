@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Set twice-daily news checks at 08:00 and 14:00 Malta time across seasonal clock changes
+
 - [x] Show small, always-visible photo thumbnails above map pins with uploaded images
 
 - [x] Daily hornet news check + News page + homepage strip, backfill 2026
