@@ -29,7 +29,7 @@ function NewsPage() {
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
         <h1 className="font-display text-3xl font-bold">Hornet news</h1>
         <p className="mt-2 text-muted-foreground">
-          Oriental hornet stories from Maltese news sites since January 2026, checked automatically every day.
+          Oriental hornet stories from Maltese news sites since January 2026, checked at 08:00 and 14:00 Malta time.
           Headlines link to the original article. Picked by keyword, so the odd unrelated story may slip in.
         </p>
         {isLoading && <p className="mt-6">Loading…</p>}

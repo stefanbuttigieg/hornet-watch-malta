@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { authenticateCronRequest } from "@/integrations/supabase/cron-auth";
 import { googleNewsUrl, NEWS_QUERIES, parseNewsRss, type NewsItem } from "@/lib/news";
+import { isNewsRefreshTime } from "@/lib/news-schedule";
 
-// Called daily by the scheduler. Only fetches public news and stores headlines,
+// UTC candidates cover both seasonal offsets; refresh only at 08:00/14:00 Malta.
 // Only the scheduler may call it, and it refuses to run twice within 30 minutes.
 async function refresh({ request }: { request: Request }) {
   const authFailure = await authenticateCronRequest(request);
   if (authFailure) return authFailure;
+  if (!isNewsRefreshTime(new Date())) return Response.json({ skipped: "outside Malta news check hours" });
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const cutoff = new Date(Date.now() - 30 * 60000).toISOString();
   const { data: locked } = await supabaseAdmin
