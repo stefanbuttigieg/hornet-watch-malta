@@ -75,8 +75,15 @@ export default function HornetMap({
           }}
         >
           {r.photo_url && (
-            <Tooltip permanent direction="top" offset={[0, -8]} opacity={1} className="map-photo-thumbnail">
-              <PhotoThumb path={r.photo_url} size={40} />
+            <Tooltip permanent interactive direction="top" offset={[0, -8]} opacity={1} className="map-photo-thumbnail">
+              <button
+                type="button"
+                aria-label="Open full photo"
+                style={{ cursor: "pointer", display: "block", padding: 0, border: 0, background: "none" }}
+                onClick={(e) => { e.stopPropagation(); openPhoto(r.photo_url!).catch(() => toast.error("Photo unavailable")); }}
+              >
+                <PhotoThumb path={r.photo_url} size={40} />
+              </button>
             </Tooltip>
           )}
           <Popup>
