@@ -16,3 +16,4 @@
 - Browser end-to-end tests live in tests/e2e and use real report storage and moderation; only external geocoding is stubbed for determinism, and uniquely identified test reports are deleted in teardown.
 - The public release log is a static, newest-first history in its own route; distinguish development history from deployment dates to avoid inventing release dates.
 - News cron uses UTC candidates for both seasonal offsets, with a Europe/Malta local-hour guard in the authenticated handler to preserve local check times across clock changes.
+- News collection runs feeds concurrently with bounded requests and saves each feed independently before the five-second scheduler deadline; failures must not discard successful feeds or count as successful checks.
