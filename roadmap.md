@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Make news collection finish within the scheduler timeout, preserve partial results, and verify the government plan appears
+- [x] Make news collection finish within the scheduler timeout, preserve partial results, and verify the government plan appears
 
 - [x] Set twice-daily news checks at 08:00 and 14:00 Malta time across seasonal clock changes
 
